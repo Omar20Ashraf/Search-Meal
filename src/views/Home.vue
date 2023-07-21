@@ -1,15 +1,26 @@
 <template>
-    <div>
-        <h1>My Meals</h1>
-        <pre>{{ meals }}</pre>
+    <div class="flex flex-col p-8">
+        <div>
+            <input 
+                type="text" 
+                cLass="rounded border-2 border-gray-200 w-full" 
+                placeholder="Search for Meals"
+            />
+        </div>
+
+        <div class="flex justify-center gap-2 mt-2">
+            <router-Link 
+                :to="{name:'byLetter',params:{letter}}" 
+                v-for="letter in letters" 
+                :key="letter">
+                    {{ letter }}
+            </router-Link>
+        </div>
     </div>
 </template>
 
 <script setup>
 
-import { computed } from 'vue'
-import store from '../store'
-
-const meals = computed(() => store.getters.meals)
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 </script>

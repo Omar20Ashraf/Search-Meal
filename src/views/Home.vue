@@ -21,6 +21,15 @@
 
 <script setup>
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    import { onMounted } from 'vue';
+    import axiosClient from '../axiosClient.js';
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+    onMounted(async() => {
+        const response = await axiosClient.get('/list.php?i=list');
+
+        console.log(response.data);
+    });
 
 </script>

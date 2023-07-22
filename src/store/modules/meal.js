@@ -3,12 +3,16 @@ import axiosClient from "../../axiosClient";
 const state = {
     searchedMeals: [],
     mealsByLetter: [],
+    ingredients: [],
+    mealsByIngredient: [],
     meal: "",
 };
 
 const getters = {
     searchedMeals: (state) => state.searchedMeals,
     mealsByLetter: (state) => state.mealsByLetter,
+    ingredients: (state) => state.ingredients,
+    mealsByIngredient: (state) => state.mealsByIngredient,
     meal: (state) => state.meal,
 };
 
@@ -25,6 +29,14 @@ const actions = {
         const response = await axiosClient.get(`search.php?f=${letter}`);
         commit("setMealsByLetter", response.data.meals);
     },
+    async getIngredients({ commit }) {
+        const response = await axiosClient.get("list.php?i=list");
+        commit("setIngredients", response.data.meals);
+    },
+    async searchMealsByIngredient({ commit },ing) {
+        const response = await axiosClient.get(`filter.php?i=${ing}`);
+        commit("setMealsByIngredient", response.data.meals);
+    },
 };
 
 const mutations = {
@@ -38,6 +50,14 @@ const mutations = {
     setMealsByLetter(state, meals) {
         if (!meals) meals = [];
         state.mealsByLetter = meals;
+    },
+    setIngredients(state, meals) {
+        if (!meals) meals = [];
+        state.ingredients = meals;
+    },
+    setMealsByIngredient(state, meals) {
+        if (!meals) meals = [];
+        state.mealsByIngredient = meals;
     },
 };
 

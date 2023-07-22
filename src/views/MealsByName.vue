@@ -12,7 +12,7 @@
     <div v-if="meals.length" class="grid grid-cols-1 md:grid-cols-3 gap-5 p-8">
         <div v-for="meal of meals" :key="meal.idMeal" cLass="bg-white shadow rounded-xl">
 
-            <router-link to="/">
+            <router-link :to="{name:'mealDetails',params:{id:meal.idMeal}}">
                 <img
                     :src="meal.strMealThumb"
                     :alt="meal.strMeal"
@@ -26,13 +26,7 @@
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora perspiciatis necessitatibus sint tempore accusamus in saepe fugit hic aperiam!
                 </p>
                 <div class="flex items-center justify-between">
-                    <a 
-                        :href="meal.strYoutube" 
-                        target="_blank" 
-                        class="px-3 py-2 rounded border-2 text-white border-orange-600 bg-orange-500 hover:bg-orange-600 transition-colors"
-                    >
-                        Youtube
-                    </a>
+                    <YouTubeButton :href="meal.strYoutube" />
                 </div>
             </div>
         </div>
@@ -43,6 +37,7 @@
     </div>    
 </template>
 <script setup>
+    import YouTubeButton from '../components/YouTubeButton.vue';
 
     import { useStore } from 'vuex';
     import { ref, computed, onMounted } from "vue";

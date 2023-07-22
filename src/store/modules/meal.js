@@ -2,11 +2,13 @@ import axiosClient from "../../axiosClient";
 
 const state = {
     searchedMeals: [],
-    meal:''
+    mealsByLetter: [],
+    meal: "",
 };
 
 const getters = {
     searchedMeals: (state) => state.searchedMeals,
+    mealsByLetter: (state) => state.mealsByLetter,
     meal: (state) => state.meal,
 };
 
@@ -19,17 +21,23 @@ const actions = {
         const response = await axiosClient.get(`lookup.php?i=${id}`);
         commit("setMealDetails", response.data.meals);
     },
+    async searchMealsByLetter({ commit }, letter) {
+        const response = await axiosClient.get(`search.php?f=${letter}`);
+        commit("setMealsByLetter", response.data.meals);
+    },
 };
 
 const mutations = {
     setSearchedMeals(state, meals) {
         if (!meals) meals = [];
-
         state.searchedMeals = meals;
     },
-
     setMealDetails(state, meals) {
         state.meal = meals[0] || {};
+    },
+    setMealsByLetter(state, meals) {
+        if (!meals) meals = [];
+        state.mealsByLetter = meals;
     },
 };
 

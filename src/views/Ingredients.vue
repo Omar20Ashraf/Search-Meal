@@ -15,6 +15,7 @@
       <router-link 
         v-for="ingredient of computedIngredients"
         :key="ingredient.idIngredient" 
+        @click="setIngredient(ingredient)"
         :to="{ name: 'byIngredient', params: { ingredient: ingredient.strIngredient } }"
         class="block bg-white rounded p-3 mb-3 shadow">
           {{ ingredient.strIngredient }}
@@ -40,6 +41,9 @@
     );
   });
 
+  function setIngredient(ingredient){
+    store.commit('setIngredient', ingredient)
+  }
   onMounted(() => {
     store.dispatch("getIngredients");
   });

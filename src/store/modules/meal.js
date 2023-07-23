@@ -6,6 +6,7 @@ const state = {
     ingredients: [],
     mealsByIngredient: [],
     randomMeals: [],
+    ingredient: {},    
     meal: "",
 };
 
@@ -15,6 +16,7 @@ const getters = {
     ingredients: (state) => state.ingredients,
     mealsByIngredient: (state) => state.mealsByIngredient,
     randomMeals: (state) => state.randomMeals,
+    getIngredient: (state) => state.ingredient,
     meal: (state) => state.meal,
 };
 
@@ -75,6 +77,9 @@ const mutations = {
         if (!meals) meals = [];
         state.randomMeals = meals;
     },
+    setIngredient(state, ingredient) {
+        state.ingredient = ingredient;
+    },   
 };
 
 export default {

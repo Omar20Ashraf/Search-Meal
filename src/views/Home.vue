@@ -1,16 +1,21 @@
 <template>
-    <div class="flex flex-col p-8">
-
+    <div class="p-8 pb-0 text-orange-500">
+        <h1 class="text-4xl font-bold mb-4">Random Meals</h1>
     </div>
+    <Meals :meals="meals" />
 </template>
 
 <script setup>
+    import Meals from '../components/Meals.vue'
 
-    import { onMounted } from 'vue';
-    import axiosClient from '../axiosClient.js';
+    import { onMounted,computed } from "vue";
+    import { useStore } from 'vuex';
+    
+    const store = useStore();
 
-    onMounted(async() => {
-        const response = await axiosClient.get('/list.php?i=list');
-    });
+    const meals = computed(() => store.getters.randomMeals);
 
+    onMounted(() => {
+        store.dispatch('getRandomMeals')
+    })
 </script>

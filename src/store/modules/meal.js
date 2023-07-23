@@ -5,6 +5,7 @@ const state = {
     mealsByLetter: [],
     ingredients: [],
     mealsByIngredient: [],
+    randomMeals: [],
     meal: "",
 };
 
@@ -13,6 +14,7 @@ const getters = {
     mealsByLetter: (state) => state.mealsByLetter,
     ingredients: (state) => state.ingredients,
     mealsByIngredient: (state) => state.mealsByIngredient,
+    randomMeals: (state) => state.randomMeals,
     meal: (state) => state.meal,
 };
 
@@ -37,6 +39,16 @@ const actions = {
         const response = await axiosClient.get(`filter.php?i=${ing}`);
         commit("setMealsByIngredient", response.data.meals);
     },
+    async getRandomMeals({ commit }) {
+        const meals = [];
+
+        for (let i = 0; i < 10; i++) {
+            const response = await axiosClient.get('random.php');  
+            meals.push(response.data.meals[0]);
+        }
+
+        commit("setRandomMeals", meals);
+    },
 };
 
 const mutations = {
@@ -58,6 +70,10 @@ const mutations = {
     setMealsByIngredient(state, meals) {
         if (!meals) meals = [];
         state.mealsByIngredient = meals;
+    },
+    setRandomMeals(state, meals) {
+        if (!meals) meals = [];
+        state.randomMeals = meals;
     },
 };
 
